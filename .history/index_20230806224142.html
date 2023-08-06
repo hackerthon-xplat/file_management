@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Upload File và Thu thập thông tin</title>
+</head>
+
+<body>
+    <h1>Upload File và Thu thập thông tin</h1>
+    <input type="file" id="fileInput" />
+    <button onclick="handleUpload()">Tải lên</button>
+
+    <script>
+        function handleUpload() {
+            const fileInput = document.getElementById('fileInput');
+            if (fileInput.files.length > 0) {
+                const file = fileInput.files[0];
+
+                log.
+
+                const fileInfo = {
+                    file_name: file.name,
+                    file_extension: file.name.split('.').pop(),
+                    file_size: file.size,
+                    upload_time: new Date(),
+                    file_type: file.type,
+                };
+
+                const user_agent = navigator.userAgent;
+                const user_browser = navigator.appName + ' ' + navigator.appVersion;
+                const user_os = navigator.platform;
+                const user_language = navigator.language;
+                const upload_protocol = window.location.protocol;
+
+                fileInfo.user_agent = user_agent;
+                fileInfo.user_browser = user_browser;
+                fileInfo.user_os = user_os;
+                fileInfo.user_language = user_language;
+                fileInfo.upload_protocol = upload_protocol;
+
+                // Đọc kích thước của ảnh (nếu file là ảnh)
+                if (file.type.startsWith('image/')) {
+                    const image = new Image();
+                    image.src = URL.createObjectURL(file);
+                    image.onload = function () {
+                        fileInfo.image_width = this.width;
+                        fileInfo.image_height = this.height;
+                        console.log('Thông tin file:');
+                        console.log(fileInfo);
+                    };
+                } else {
+                    console.log('Thông tin file:');
+                    console.log(fileInfo);
+                }
+            } else {
+                console.log('Hãy chọn một file để tải lên.');
+            }
+        }
+    </script>
+</body>
+
+</html>
